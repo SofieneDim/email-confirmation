@@ -6,6 +6,9 @@ const fields = {
   email: {
     type: String
   },
+  info: {
+    type: Object
+  },
   confirmed: {
     type: Boolean,
     default: false

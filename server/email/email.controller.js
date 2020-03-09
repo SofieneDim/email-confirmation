@@ -6,13 +6,14 @@ const templates = require('./email.templates')
 // The callback that is invoked when the user submits the form on the client.
 exports.collectEmail = (req, res) => {
   const { email } = req.body
-  
+  const { info } = req.body
+
   User.findOne({ email })
     .then(user => {
-      
+
       // We have a new user! Send them a confirmation email.
       if (!user) {
-        User.create({ email })
+        User.create({ email, info })
           .then(newUser => sendEmail(newUser.email, templates.confirm(newUser._id)))
           .then(() => res.json({ msg: msgs.confirm }))
           .catch(err => console.log(err))
@@ -48,17 +49,20 @@ exports.confirmEmail = (req, res) => {
       if (!user) {
         res.json({ msg: msgs.couldNotFind })
       }
-      
+
       // The user exists but has not been confirmed. We need to confirm this 
       // user and let them know their email address has been confirmed.
       else if (user && !user.confirmed) {
+        var userInfo = {}
+        User.findById(id)
+          .then(user => { userInfo = user.info })
         User.findByIdAndUpdate(id, { confirmed: true })
-          .then(() => res.json({ msg: msgs.confirmed }))
+          .then(() => res.json({ msg: msgs.confirmed, info: userInfo }))//res.json({ msg: msgs.confirmed }))
           .catch(err => console.log(err))
       }
 
       // The user has already confirmed this email address.
-      else  {
+      else {
         res.json({ msg: msgs.alreadyConfirmed })
       }
 
