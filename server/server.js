@@ -44,9 +44,10 @@ const options = {
 
 
 // Connecting the database and then starting the app.
-mongoose.connect(DB_URL, options, () => {
+mongoose.connect(DB_URL, options, (error) => {
+  if (error) { return console.error('error:', error) }
   app.listen(PORT, () => console.log('👍'))
 })
-// The most likely reason connecting the database would error out is because 
-// Mongo has not been started in a separate terminal.
-.catch(err => console.log(err))
+  // The most likely reason connecting the database would error out is because 
+  // Mongo has not been started in a separate terminal.
+  .catch(err => console.log(err))
