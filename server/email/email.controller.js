@@ -53,12 +53,9 @@ exports.confirmEmail = (req, res) => {
       // The user exists but has not been confirmed. We need to confirm this 
       // user and let them know their email address has been confirmed.
       else if (user && !user.confirmed) {
-        User.findById(id)
-          .then(user => {
-            User.findByIdAndUpdate(id, { confirmed: true })
-              .then(() => res.json({ msg: msgs.confirmed, info: user.info }))//res.json({ msg: msgs.confirmed }))
-              .catch(err => console.log(err))
-          })
+        User.findByIdAndUpdate(id, { confirmed: true })
+          .then(() => res.json({ msg: msgs.confirmed, info: user.info }))
+          .catch(err => console.log(err))
       }
 
       // The user has already confirmed this email address.

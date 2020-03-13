@@ -5,11 +5,22 @@ const cors = require('cors')
 
 const app = express()
 const emailController = require('./email/email.controller')
-const { PORT, CLIENT_ORIGIN, DB_URL } = require('./config')
+const { PORT, CLIENTS_ORIGIN, DB_URL } = require('./config')
 
 // Only allow requests from our client
 app.use(cors({
-  origin: CLIENT_ORIGIN
+  origin: function (origin, callback) {
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (CLIENTS_ORIGIN.indexOf(origin) === -1) {
+      var msg = 'The CORS policy for this site does not ' +
+        'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+
+  }
 }))
 
 // Allow the app to accept JSON on req.body
