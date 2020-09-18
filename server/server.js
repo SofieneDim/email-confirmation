@@ -10,6 +10,7 @@ const { PORT, CLIENTS_ORIGIN, DB_URL } = require('./config')
 // Only allow requests from our client
 app.use(cors({
   origin: function (origin, callback) {
+    return callback(null, true);
     // allow requests with no origin 
     // (like mobile apps or curl requests)
     if (!origin) return callback(null, true);

@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production forever server.js",
+    "start": "node server.js",
     "deploy": "now && now alias",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "push": "git add . && git commit -m 'auto push -2-' && git push"
   },
   "author": "jesse heaslip",
   "license": "MIT",
@@ -20,7 +21,7 @@
     "nodemailer": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9",
+    "nodemon": "^1.19.4",
     "now": "^13.0.0"
   }
 }
