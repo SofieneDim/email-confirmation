@@ -8,6 +8,7 @@ exports.collectEmail = (req, res) => {
   const { email } = req.body;
   const info = req.body;
   const origin = req.get('origin');
+
   User.findOne({ email })
     .then(user => {
 
