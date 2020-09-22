@@ -1,7 +1,7 @@
 exports.PORT = 8090
 
 // exports.CLIENT_ORIGIN = 'https://www.tracepic-backend.trimakus.com';
-exports.CLIENT_ORIGIN = 'http://localhost:3000'
+exports.CLIENT_ORIGIN = 'http://51.75.246.191'
 
 // exports.CLIENTS_ORIGIN = ['https://www.tracepic-backend.trimakus.com', 'https://tracepic-backend.trimakus.com'];
 exports.CLIENTS_ORIGIN = ['https://www.tracepic-backend.trimakus.com', 'https://tracepic-backend.trimakus.com', 'http://localhost:3000'];

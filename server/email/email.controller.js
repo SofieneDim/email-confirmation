@@ -2,12 +2,12 @@ const User = require('../user.model')
 const sendEmail = require('./email.send')
 const msgs = require('./email.msgs')
 const templates = require('./email.templates')
+const { CLIENT_ORIGIN } = require('../config')
 
 // The callback that is invoked when the user submits the form on the client.
 exports.collectEmail = (req, res) => {
   const { email } = req.body;
   const info = req.body;
-  const origin = req.get('origin');
 
   User.findOne({ email })
     .then(user => {
@@ -15,7 +15,7 @@ exports.collectEmail = (req, res) => {
       // We have a new user! Send them a confirmation email.
       if (!user) {
         User.create({ email, info })
-          .then(newUser => sendEmail(newUser.email, templates.confirm(newUser._id, origin)))
+          .then(newUser => sendEmail(newUser.email, templates.confirm(newUser._id, CLIENT_ORIGIN)))
           .then(() => res.json({ msg: msgs.confirm }))
           .catch(err => console.log(err))
       }
