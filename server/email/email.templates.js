@@ -7,14 +7,17 @@
 // (eg. unsubscribe) in the future.
 module.exports = {
 
-  confirm: (id, origin) => ({
-    subject: 'React Confirm Email',
-    html: `
-      <a href='${origin}/signup/confirm/${id}'>
+  confirm: (id, origin) => {
+    console.log('origin:', origin)
+    return {
+      subject: 'React Confirm Email',
+      html: `
+      <a href='http://tracepic-dev.trimakus.com/signup/confirm/${id}'>
         click to confirm email
       </a>
     `,
-    text: `Copy and paste this link: ${origin}/confirm/${id}`
-  })
+      text: `Copy and paste this link: http://tracepic-dev.trimakus.com/signup/confirm/${id}`
+    }
+  }
 
 }

@@ -1,6 +1,6 @@
 exports.PORT = 8090
 
-exports.CLIENT_ORIGIN = 'http://51.75.246.191'
+exports.CLIENT_ORIGIN = 'tracepic-dev.trimakus.com'
 // exports.CLIENT_ORIGIN = 'http://localhost:3000'
 
 
