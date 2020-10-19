@@ -8,21 +8,7 @@ const emailController = require('./email/email.controller')
 const { PORT, CLIENTS_ORIGIN, DB_URL } = require('./config')
 
 // Only allow requests from our client
-app.use(cors({
-  origin: function (origin, callback) {
-    return callback(null, true);
-    // allow requests with no origin 
-    // (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (CLIENTS_ORIGIN.indexOf(origin) === -1) {
-      var msg = 'The CORS policy for this site does not ' +
-        'allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-
-  }
-}))
+app.use(cors());
 
 // Allow the app to accept JSON on req.body
 app.use(express.json())
@@ -42,6 +28,9 @@ app.post('/email', emailController.collectEmail)
 // Confirm.js on the client.
 app.get('/email/confirm/:id', emailController.confirmEmail)
 
+
+app.post('/account/confirmed', emailController.informLabo)
+
 // Catch all to handle all other requests that come into the app. 
 app.use('*', (req, res) => {
   res.status(404).json({ msg: 'Not Found' })
@@ -58,7 +47,7 @@ const options = {
 // Connecting the database and then starting the app.
 mongoose.connect(DB_URL, options, (error) => {
   if (error) { return console.error('error:', error) }
-  app.listen(PORT, () => console.log('👍'))
+  app.listen(PORT, () => console.log(PORT, ' 👍'))
 })
   // The most likely reason connecting the database would error out is because 
   // Mongo has not been started in a separate terminal.
